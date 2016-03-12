@@ -6,8 +6,8 @@ function submit() {
 	var ignore = $("#ignore").prop('checked')?'1':'0';
 	var ignore_mul_edge = $("#ignore_mul_edge").prop('checked')?'1':'0';
 	var data = $("#data").val();
-	window.history.replaceState("","",url);
 	var url = location.pathname+"?"+"data="+encodeURIComponent(data)+"&directed="+directed+"&ignore="+ignore+"&ignore_mul_edge="+ignore_mul_edge;
+	window.history.replaceState("","",url);
 }
 
 function check_edge(multiple_edges,start,end){
