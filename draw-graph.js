@@ -5,7 +5,7 @@ function submit() {
 	var directed = $("#directed").prop('checked')?'1':'0';
 	var ignore = $("#ignore").prop('checked')?'1':'0';
 	var data = $("#data").val();
-	var url = location.pathname+"?"+"data="+encodeURIComponent(data)+"&directed="+directed+"&ignore="+ignore;
+	var url = location.pathname+"?"+"data="+encodeURIComponent(encodeURIComponent(data))+"&directed="+directed+"&ignore="+ignore;
 	window.history.replaceState("","",url);
 }
 
@@ -84,7 +84,7 @@ $(document).ready(function() {
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
-	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+	var sPageURL = decodeURIComponent(decodeURIComponent(window.location.search.substring(1))),
 		sURLVariables = sPageURL.split('&'),
 		sParameterName,
 		i;
