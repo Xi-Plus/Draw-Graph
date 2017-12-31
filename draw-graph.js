@@ -6,7 +6,7 @@ function submit() {
 	var ignore = $("#ignore").prop('checked')?'1':'0';
 	var ignore_mul_edge = $("#ignore_mul_edge").prop('checked')?'1':'0';
 	var data = $("#data").val();
-	var url = location.pathname+"?"+"data="+encodeURIComponent(data)+"&directed="+directed+"&ignore="+ignore+"&ignore_mul_edge="+ignore_mul_edge;
+	var url = location.pathname+"?"+"data="+encodeURIComponent(data).replace(/%20/g,'+')+"&directed="+directed+"&ignore="+ignore+"&ignore_mul_edge="+ignore_mul_edge;
 	window.history.replaceState("","",url);
 }
 
@@ -29,8 +29,8 @@ function draw_graph() {
 	for (var i in data) {
 		data[i] = data[i].trim().split(/ +/);
 		if (data[i].length >= 2) {
-			data[i][0] = parseInt(data[i][0]);
-			data[i][1] = parseInt(data[i][1]);
+			data[i][0] = data[i][0];
+			data[i][1] = data[i][1];
 		}
 	}
 
@@ -101,13 +101,11 @@ $(document).ready(function() {
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
-	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-		sURLVariables = sPageURL.split('&'),
-		sParameterName,
-		i;
+	var sPageURL = decodeURIComponent(window.location.search.substring(1).replace(/\+/g, '%20'));
+	var sURLVariables = sPageURL.split('&');
 
-	for (i = 0; i < sURLVariables.length; i++) {
-		sParameterName = sURLVariables[i].split('=');
+	for (var i = 0; i < sURLVariables.length; i++) {
+		var sParameterName = sURLVariables[i].split('=');
 
 		if (sParameterName[0] === sParam) {
 			return sParameterName[1] === undefined ? true : sParameterName[1];
